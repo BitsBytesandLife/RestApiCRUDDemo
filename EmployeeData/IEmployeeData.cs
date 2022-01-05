@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestApiCRUDDemo.EmployeeData
 {
-    interface IEmployeeData
+   public  interface IEmployeeData
     {
 
         List<Employee> GetEmployees();
@@ -15,9 +15,9 @@ namespace RestApiCRUDDemo.EmployeeData
 
         Employee AddEmployee(Employee employee);
 
-        void DeleteEmplyoee(Employee employee);
+        void DeleteEmployee(Employee employee);
 
-        Employee EditEmployee(Employee employee)
+        Employee EditEmployee(Employee employee);
 
     }
 }

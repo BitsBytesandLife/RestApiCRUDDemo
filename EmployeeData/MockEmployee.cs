@@ -8,29 +8,50 @@ namespace RestApiCRUDDemo.EmployeeData
 {
     public class MockEmployee : IEmployeeData
     {
+
+        private List<Employee> employees = new List<Employee>()
+        {
+            new Employee()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Emp One"
+            },
+            new Employee()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Emp Two"
+            }
+
+        };
+
         public Employee AddEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            employee.Id = Guid.NewGuid();
+            employees.Add(employee);
+
+            return employee;
         }
 
-        public void DeleteEmplyoee(Employee employee)
+        public void DeleteEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            employees.Remove(employee);
         }
 
         public Employee EditEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var currentEmployee = GetEmployee(employee.Id);
+            currentEmployee.Name = employee.Name;
+            return currentEmployee;
         }
 
         public Employee GetEmployee(Guid id)
         {
-            throw new NotImplementedException();
+            return employees.SingleOrDefault(x => x.Id == id);
         }
 
         public List<Employee> GetEmployees()
         {
-            throw new NotImplementedException();
+            return employees;
         }
     }
 }
