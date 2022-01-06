@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RestApiCRUDDemo.EmployeeData;
+using RestApiCRUDDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,9 @@ namespace RestApiCRUDDemo
         {
 
             services.AddControllers();
-            services.AddSingleton<IEmployeeData, MockEmployee>();
+            services.AddDbContextPool<EmployeeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeContextConnectionString")));
+            //services.AddSingleton<IEmployeeData, MockEmployee>();
+            services.AddScoped<IEmployeeData, SQLEmployeeData>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestApiCRUDDemo", Version = "v1" });
